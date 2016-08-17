@@ -195,16 +195,23 @@ def getWikiDataID(site, oboID, label, pID):
                 else:
                     wdID = None
                 
-            # If there are more than 1 match...
+            # If there are more than 1 matches...
             elif (len(match) > 1):
+                testID = ''
                 for w in wDataByLabel['search']:
                     checkID = w['id']
                     # Check if ontology property is used with OBO ID
                     exists = HF.claimExists(site, checkID, pID, oboID)
                     if exists == True:
-                        wdID = checkID
+                        testID = checkID
                     else:
-                        wdID = None
+                        pass
+                    
+                if (testID != ''):
+                    wdID = testID
+                else:
+                    wdID = None
+                    
             else:
                 wdID = None
         else:
