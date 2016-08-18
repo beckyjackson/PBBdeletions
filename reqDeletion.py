@@ -40,7 +40,7 @@ def requestForDeletion(obs_list, pwd, pID, ontology):
         print req_text
         
         ''' #Uncomment this section for posting!
-        #title = deprecated_terms[0]
+        #title = obs_qids[0]
         #r = postRequest(req_text, login, title)
         #pprint.pprint(r.json())
         '''
