@@ -71,7 +71,7 @@ def postRequest (req_text, login, title):
                   'title': 'Wikidata:Requests_for_deletions',
                   'section': 'new',
                   'sectiontitle': title,
-                  'appendtext': req_text,
+                  'text': req_text,
                   'token': login.get_edit_token(),
                   'format': 'json'
                   }
