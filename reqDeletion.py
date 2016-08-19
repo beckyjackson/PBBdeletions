@@ -15,15 +15,16 @@ def requestForDeletion(obs_list, pwd, pID, ontology):
     """   
     
     # TODO: get correct server
-    ''' #Uncomment this section for posting!
+    """ #Uncomment this section for posting!
     #login = PBB_login.WDLogin(user='', pwd=pwd, server='')
-    '''
+    """
+    
     obs_qids = []
     
     for o in obs_list:   
         if "_" in o:
             o = o.replace("_", ":")
-        wdID = getWikiDataID_PBB(o, pID)
+        wdID = getWikiDataID(o, pID)
         
         if (wdID != None):
             obs_qids.append(wdID)
@@ -34,21 +35,21 @@ def requestForDeletion(obs_list, pwd, pID, ontology):
     # One term, do deletion request
     if (len(obs_qids) == 1):
         req_text = \
-            '''{{{{rfd links|{}|{}}}}} \n\n'''.format(obs_qids[0], 'Deprecated term from {}'.format(ontology))
+            '{{{{rfd links|{}|{}}}}} \n\n'.format(obs_qids[0], 'Deprecated term from {}'.format(ontology))
         
         req_text = req_text + 'Deprecated term from {}'.format(ontology)
         print req_text
         
-        ''' #Uncomment this section for posting!
+        """ #Uncomment this section for posting!
         #title = obs_qids[0]
         #r = postRequest(req_text, login, title)
         #pprint.pprint(r.json())
-        '''
+        """
            
     # More than one term, do bulk deletion request    
     else:
         req_text_prfx = \
-            '''{{subst:Rfd group | '''
+            '{{subst:Rfd group | '
         
         for ot in obs_qids:
             req_text_prfx = req_text_prfx + '{} | '.format(ot)
@@ -57,11 +58,11 @@ def requestForDeletion(obs_list, pwd, pID, ontology):
         req_text = req_text_prfx + req_text_sfx 
         print req_text
         
-        ''' #Uncomment this section for posting!
+        """ #Uncomment this section for posting!
         #title = 'Bulk Deletion Request - Deprecated Terms'
         #r = postRequest(req_text, login, title)
         #pprint.pprint(r.json())
-        '''
+        """
             
 
 def postRequest (req_text, login, title):      
@@ -80,12 +81,12 @@ def postRequest (req_text, login, title):
     return r
        
        
-def getWikiDataID_PBB(oboID, pID):
-    '''
+def getWikiDataID(oboID, pID):
+    """
     Search WikiData for any item that has the claim of given pID
     (ontology ID property) with the oboID as a string. If no results
     found, return None.
-    '''   
+    """ 
     query = 'string[{}:"{}"]'.format(pID.split("P",1)[1], oboID)
     wd_items = PBB_Core.WDItemList(query).wditems
     
